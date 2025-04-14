@@ -26,7 +26,7 @@ while ($true) {
             $last = $cmd
         }
     } catch {
-        Send-DiscordMessage "ERROR: $_"
+        Send-DiscordMessage "ERROR: $($_.Exception.Message)"
     }
     Start-Sleep -Seconds 5
 }
